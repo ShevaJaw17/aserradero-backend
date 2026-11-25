@@ -18,4 +18,13 @@ function authMiddleware(req, res, next) {
   next();
 }
 
-module.exports = { sign, verifyToken, authMiddleware, SECRET };
+function requireRole(...roles) {
+  return (req, res, next) => {
+    if (!req.user || !roles.includes(req.user.rol)) {
+      return res.status(403).json({ error: 'Permisos insuficientes' });
+    }
+    next();
+  };
+}
+
+module.exports = { sign, verifyToken, authMiddleware, requireRole, SECRET };

@@ -1,5 +1,8 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 const { authMiddleware } = require('./middleware/auth');
 const authRoutes = require('./routes/auth');
 const entityRouter = require('./routes/entity');
@@ -7,8 +10,11 @@ const entityRouter = require('./routes/entity');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({ origin: '*', credentials: true }));
-app.use(express.json({ limit: '10mb' }));
+const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:8100').split(',').map((s) => s.trim());
+app.use(helmet());
+app.use(cors({ origin: (origin, cb) => (!origin || allowedOrigins.includes(origin)) ? cb(null, true) : cb(new Error('CORS bloqueado')), credentials: true }));
+app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 300 }));
+app.use(express.json({ limit: '1mb' }));
 
 app.get('/api/health', (_req, res) => res.json({ ok: true, service: 'aserradero-backend' }));
 
