@@ -1,0 +1,23 @@
+[
+  {
+    "id": "operador",
+    "nombre": "Operador Demo",
+    "usuario": "operador",
+    "password": "$2b$10$kukIlD15aQ28vkquHMnXaej3DVwaAnHkLteWe2ZaOH3Ib2OfkFbR.",
+    "rol": "operador"
+  },
+  {
+    "id": "jefe",
+    "nombre": "Jefe de Planta",
+    "usuario": "jefe",
+    "password": "$2b$10$TmT8XmK3eb5hsZHFAYB9QeOsMyqP4si0yFlPqxr7aFZsbBmAN.LS6",
+    "rol": "jefe"
+  },
+  {
+    "id": "admin",
+    "nombre": "Administrador",
+    "usuario": "admin",
+    "password": "$2b$10$RMouVAUwUJQnpiWDtT5suOfFFUx75J3/05b8fddv1TgFSXMfAA.d2",
+    "rol": "admin"
+  }
+]
