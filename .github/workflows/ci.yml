@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Start server and health check
+        run: |
+          npm start &
+          SERVER_PID=$!
+          for i in $(seq 1 20); do
+            if curl -sf http://localhost:3000/api/health; then
+              echo "Health OK"
+              kill $SERVER_PID
+              exit 0
+            fi
+            sleep 1
+          done
+          kill $SERVER_PID
+          exit 1
