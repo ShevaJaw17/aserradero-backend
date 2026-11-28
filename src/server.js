@@ -27,6 +27,7 @@ const collections = {
   pedidos: 'pedidos',
   facturas: 'facturas',
   mantenimientos: 'mantenimientos',
+  operadores: 'operadores',
 };
 
 Object.entries(collections).forEach(([route, coll]) => {
