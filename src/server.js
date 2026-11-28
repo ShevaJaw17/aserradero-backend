@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 
 const allowedOrigins = (process.env.CORS_ORIGINS || 'http://localhost:8100,http://localhost:4200,http://localhost:8101,https://localhost').split(',').map((s) => s.trim());
 app.use(helmet());
-app.use(cors({ origin: (origin, cb) => (!origin || allowedOrigins.includes(origin)) ? cb(null, true) : cb(new Error('CORS bloqueado')), credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(rateLimit({ windowMs: 15 * 60 * 1000, max: 300 }));
 app.use(express.json({ limit: '1mb' }));
 
